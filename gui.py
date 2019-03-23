@@ -53,7 +53,7 @@ class App:
         self.scalePosY.set(0.5)
         self.scalePosY.pack()
 
-        self.btn_save= tk.Button(window, text="Save", width=15, command=self.quicksave)
+        self.btn_save= tk.Button(window, text="Quick Save", width=15, command=self.quicksave)
         self.btn_save.pack(side=tk.BOTTOM)
 
         self.btn_browse1= tk.Button(window, text="Browse", width=15, command=self.loadImg)

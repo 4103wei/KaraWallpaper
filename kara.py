@@ -1,5 +1,6 @@
 import cv2 as cv2
 import numpy as np
+import time
 
 def createWallpaper(img, size=(1920, 1080), bg=(0,0,0), pos=(0.5,0.5), scale=1.0):
     print("Size: " + str(size))
@@ -32,7 +33,8 @@ def createWallpaper(img, size=(1920, 1080), bg=(0,0,0), pos=(0.5,0.5), scale=1.0
                     background[j, i, 1] = img[imgc_y, imgc_x, 1]
                     background[j, i, 2] = img[imgc_y, imgc_x, 2]
 
-    cv2.imwrite('images/combined.png', cv2.cvtColor(background, cv2.COLOR_RGBA2BGRA))
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    cv2.imwrite('images/'+timestr+'.png', cv2.cvtColor(background, cv2.COLOR_RGBA2BGRA))
 
 
 
