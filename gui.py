@@ -4,6 +4,8 @@ import numpy as np
 from PIL import ImageTk, Image
 import cv2
 import kara
+import random
+
 class App:
     def __init__(self, window, window_title):
         self.window = window
@@ -36,8 +38,10 @@ class App:
 
         self.scaleR = tk.Scale(window, from_=0, to=255, orient=tk.HORIZONTAL, label="Red", command=self.updateRed, width= 10, sliderlength= 15)
         self.scaleR.pack()
+
         self.scaleG = tk.Scale(window, from_=0, to=255, orient=tk.HORIZONTAL, label="Green", command=self.updateGreen, width= 10, sliderlength= 15)
         self.scaleG.pack()
+
         self.scaleB = tk.Scale(window, from_=0, to=255, orient=tk.HORIZONTAL, label="Blue", command=self.updateBlue, width= 10, sliderlength= 15)
         self.scaleB.pack()
 
@@ -58,6 +62,10 @@ class App:
 
         self.btn_browse1= tk.Button(window, text="Browse", width=15, command=self.loadImg)
         self.btn_browse1.pack(side=tk.BOTTOM)
+
+        self.btn_random= tk.Button(window, text="Random Color", width=15, command=self.randomColor)
+        self.btn_random.pack(side=tk.BOTTOM)
+
         self.window.mainloop()
 
     def updateRed(self, r):
@@ -122,4 +130,10 @@ class App:
     def quicksave(self):
         if self.img is not None:
             kara.createWallpaper(self.img,(self.width, self.height),(self.scaleR.get(),self.scaleG.get(),self.scaleB.get()),(self.scalePosX.get(),self.scalePosY.get()),self.scaleSize.get())
+
+    def randomColor(self):
+        self.scaleR.set(random.randint(0, 256))
+        self.scaleG.set(random.randint(0, 256))
+        self.scaleB.set(random.randint(0, 256))
+
 App(tk.Tk(), "KaraWallpaper")
