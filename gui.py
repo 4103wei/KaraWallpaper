@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 import cv2
 import kara
 import random
-
+from tkinter import ttk
 class App:
     def __init__(self, window, window_title):
         self.window = window
@@ -15,8 +15,17 @@ class App:
         self.width = 1920
         self.height = 1080
 
-        self.canvas_width = 960
-        self.canvas_height = 540
+        self.canvas_width = self.width/2
+        self.canvas_height = self.height/2
+
+
+        self.resolutions = {"FullHD (1920x1080)":(1920,1080),"HD+ (1600x900)":(1600,900), "HD (1366x768)":(1366,768)}
+        self.combobox = ttk.Combobox(window, values=list(self.resolutions.keys()), width=20)
+        self.combobox.set(list(self.resolutions.keys())[0])
+        self.combobox.bind("<<ComboboxSelected>>", self.changeresolution)
+        self.combobox.pack()
+
+
 
         self.relative_size = (self.canvas_width / self.width , self.canvas_height / self.height)
 
@@ -136,4 +145,12 @@ class App:
         self.scaleG.set(random.randint(0, 256))
         self.scaleB.set(random.randint(0, 256))
 
+    def changeresolution(self, v):
+        self.canvas1.delete("all")
+        self.width = self.resolutions[self.combobox.get()][0]
+        self.height = self.resolutions[self.combobox.get()][1]
+        self.canvas_width = self.width/2
+        self.canvas_height = self.height/2
+        self.canvas1.configure(width=self.canvas_width, height=self.canvas_height)
+        self.canvas1.update()
 App(tk.Tk(), "KaraWallpaper")
